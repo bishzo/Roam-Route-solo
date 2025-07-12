@@ -47,7 +47,7 @@ if (addTripBtn) {
         id: Date.now(),
         title,
         desc,
-        img: `assets/${img}`
+        img: `assets/Mt Fuji.jpg`
       });
       renderTrips();
     }
