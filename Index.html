@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roam Route | Black & White Edition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Background video -->
+  <video autoplay muted loop class="bg-video">
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="logo">Roam <span>Route</span></div>
+    <div class="nav-links">
+      <a href="#">Your Trips</a>
+      <a href="#">Summary</a>
+    </div>
+    <div class="nav-right">
+      <button class="user-btn">User</button>
+      <button class="logout-btn">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Timeless Journeys, Black & White</h1>
+    <p>Design and capture your dream adventures with style and soul.</p>
+    <button class="btn silver-shine" id="add-trip">
+        <svg width="16" height="16" fill="currentColor" style="margin-right: 0.5rem;">
+          <path d="M8 0v8H0v2h8v8h2v-8h8V8h-8V0H8z" />
+        </svg>
+        Add Destination
+      </button>
+      
+      
+  </section>
+
+  <!-- Trending Destinations -->
+  <section class="section">
+    <h2 class="section-title">Trending Destinations</h2>
+    <div class="bento-grid">
+      <div class="card">
+        <img src="assets/kyoto.png" alt="Kyoto">
+        <h3>Kyoto, Japan</h3>
+        <p>Temples and timeless traditions.</p>
+      </div>
+      <div class="card">
+        <img src="assets/lisbon.png" alt="Lisbon">
+        <h3>Lisbon, Portugal</h3>
+        <p>Elegant streets and golden light.</p>
+      </div>
+      <div class="card">
+        <img src="assets/iceland.png" alt="Iceland">
+        <h3>Reykjavik, Iceland</h3>
+        <p>Northern lights and black sands.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Your Trips -->
+  <section class="section">
+    <div class="your-trips-box">
+      <div class="section-header">
+        <h2 class="section-title">Your Trips</h2>
+        <button id="add-custom-trip">+ Add New Trip</button>
+      </div>
+      <div class="bento-grid" id="trip-list"></div>
+    </div>
+  </section>
+  
+
+  <script src="app.js"></script>
+</body>
+</html>
