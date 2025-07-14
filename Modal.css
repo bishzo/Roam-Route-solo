@@ -1,0 +1,265 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(8px);
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4rem 3vw;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 1200px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2.5rem 3rem;
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+  animation: slideUp 0.4s ease;
+  position: relative;
+  color: white;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideDown {
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+.modal-content.fade-out {
+  animation: slideDown 0.3s ease forwards;
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 1.5rem;
+  color: #ccc;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  z-index: 10;
+}
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Banner Upload */
+.modal-banner-container {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.banner-upload {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+.banner-upload input {
+  display: none;
+}
+#modal-banner {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.change-banner {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+}
+
+/* Header Section */
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.trip-icon-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #444;
+}
+
+/* Title + Description */
+.modal-title {
+  font-size: 2rem;
+  font-weight: 600;
+  outline: none;
+}
+.modal-description {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  outline: none;
+}
+.trip-date {
+  font-size: 1rem;
+  color: #aaa;
+  margin-bottom: 2rem;
+  outline: none;
+}
+.modal-description:focus,
+.trip-date:focus,
+.day-summary:focus,
+.day-subtitle:focus,
+li:focus {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+/* Day Plan Section */
+.day-plan {
+  margin-bottom: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  position: relative;
+}
+
+.day-plan details {
+  width: 100%;
+  border: none;
+}
+
+.day-plan summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+.day-plan summary::-webkit-details-marker {
+  display: none;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.day-title-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  position: relative;
+  cursor: default;
+}
+
+.day-icon {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.day-icon:hover {
+  transform: scale(1.1);
+}
+
+.icon-upload {
+  display: none;
+}
+
+.day-summary {
+  font-weight: 600;
+  font-size: 1.05rem;
+  outline: none;
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+
+.day-subtitle {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 4px;
+  outline: none;
+}
+
+/* Delete Button */
+.delete-day {
+  background: transparent;
+  color: #e66;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Activity List (Checker Style) */
+.day-plan ul {
+  margin-top: 0.8rem;
+  padding-left: 0;
+  list-style: none;
+}
+.day-plan li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
+.day-plan input[type="checkbox"] {
+  accent-color: #777;
+  transform: scale(1.1);
+}
+.day-plan input[type="time"] {
+  background: #222;
+  border: 1px solid #444;
+  color: #ccc;
+  border-radius: 6px;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.85rem;
+  width: 90px;
+}
+
+/* Add Day Button */
+#add-day-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 0.3s;
+}
+#add-day-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,87 @@
+<div class="modal-overlay" id="trip-modal">
+  <div class="modal-content">
+    <button class="modal-close" id="close-modal-btn">×</button>
+
+    <!-- Banner Upload -->
+    <div class="modal-banner-container">
+      <label for="banner-upload" class="banner-upload">
+        <input type="file" id="banner-upload" accept="image/*" />
+        <img
+          src="assets/placeholder-banner.jpg"
+          alt="Banner"
+          id="modal-banner"
+        />
+        <span class="change-banner">Change Banner</span>
+      </label>
+    </div>
+
+    <!-- Trip Icon + Title -->
+    <div class="modal-header">
+      <label class="trip-icon-wrapper" title="Click to change icon">
+        <input
+          type="file"
+          id="icon-upload"
+          accept="image/png"
+          style="display: none"
+        />
+        <img
+          src="assets/icons/globe.png"
+          class="trip-icon-img"
+          id="trip-icon"
+        />
+      </label>
+      <h2 contenteditable="true" class="modal-title" id="modal-title">
+        Destination Name
+      </h2>
+    </div>
+
+    <!-- Description & Date -->
+    <p contenteditable="true" class="modal-description" id="modal-description">
+      Write your trip description here...
+    </p>
+    <p>
+      <strong>Date:</strong>
+      <span contenteditable="true" class="trip-date" id="modal-date">
+        Click to set date
+      </span>
+    </p>
+
+    <!-- Day Plan Section -->
+    <div class="day-plans" id="day-plans-container">
+      <details class="day-plan" open>
+        <summary>
+          <div class="day-header">
+            <div class="day-info">
+              <img
+                src="assets/icons/flight.png"
+                class="day-icon"
+                title="Change Icon"
+              />
+              <div>
+                <div contenteditable="true" class="day-title">
+                  Day 1: Arrival
+                </div>
+                <div contenteditable="true" class="day-subtitle">
+                  Land, check-in
+                </div>
+              </div>
+            </div>
+            <button class="delete-day">🗑️</button>
+          </div>
+        </summary>
+        <ul class="activity-list">
+          <li class="activity-item">
+            <input type="time" class="activity-time" />
+            <input type="checkbox" class="activity-check" />
+            <span contenteditable="true" class="activity-desc"
+              >Check-in at hotel</span
+            >
+          </li>
+        </ul>
+      </details>
+    </div>
+
+    <!-- Add Day Button -->
+    <button id="add-day-btn">+ Add New Day</button>
+  </div>
+</div>
