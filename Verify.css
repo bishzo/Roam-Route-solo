@@ -1,0 +1,214 @@
+body {
+    margin: 0;
+    font-family: 'Kadwa', sans-serif;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .background-animated {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  .blur-circle {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    background: white;
+    border-radius: 60%;
+    filter: blur(42px);
+    opacity: 0.40;
+    animation: floatBall 13s ease-in-out infinite;
+  }
+  
+  .circle1 {
+    top: 10%;
+    left: 12%;
+    animation-delay: 0s;
+  }
+  .circle2 {
+    bottom: 18%;
+    left: 65%;
+    animation-delay: 4s;
+  }
+  .circle3 {
+    top: 55%;
+    left: 35%;
+    animation-delay: 8s;
+  }
+  .circle4 {
+    top: 55%;
+    left: 60%;
+    animation-delay: 8s;
+  }
+  
+  @keyframes floatBall {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(120px, -80px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+  
+  .verify-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .verify-box {
+    background: rgba(255, 255, 255, 0.07);
+    padding: 3rem;
+    border-radius: 20px;
+    width: 75vw;
+    height: 75vh;
+    max-width: 90%;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05),
+                0 10px 40px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding-top: 12px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .verify-box h2 {
+    margin-bottom: 4rem;
+    color: #fff;
+    font-size: 5rem; /* Decreased from 2.2rem */
+    font-weight: 600;
+    margin-top: -1rem; /* Pull it up slightly to remove top empty space */
+  }
+  
+  
+  .verify-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+  }
+  
+  .verify-box input[type="email"],
+  .verify-box input[type="password"] {
+    width: 50%;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.7);
+    padding: 0 1.2rem;
+    border-radius: 10px 10px 0 0;
+    font-size: 1rem;
+    color: #fff;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  .verify-box input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .verify-box input:focus {
+    border-bottom: 2px solid white;
+  }
+  
+  #remember-me {
+    width: 50%;
+    text-align: left;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  #remember-me input[type="checkbox"] {
+    accent-color: white;
+  }
+  
+  .verify-box button[type="submit"] {
+    width: 50%;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffffcc;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+  }
+  
+  .verify-box button[type="submit"]:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.12);
+  }
+  
+  .or-separator {
+    margin: 2rem 0 1.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    position: relative;
+  }
+  
+  .or-separator::before,
+  .or-separator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .or-separator::before {
+    left: -110px;
+  }
+  .or-separator::after {
+    right: -110px;
+  }
+  
+  #toggle-btn {
+    width: 50%;
+    height: 52px;
+    background-color: #fff;
+    color: #000;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  #toggle-btn:hover {
+    background-color: #e6e6e6;
+  }
+  

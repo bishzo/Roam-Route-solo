@@ -12,9 +12,11 @@ function renderTrips() {
     card.className = "card trip-card";
     card.innerHTML = `
       <img src="${trip.img}" alt="${trip.title}" />
-      <button class="delete-btn">Delete</button>
-      <h3>${trip.title}</h3>
-      <p>${trip.desc}</p>
+      <button class="delete-btn" title="Delete trip">🗑️</button>
+      <div class="card-overlay">
+        <h3>${trip.title}</h3>
+        <p>${trip.desc}</p>
+      </div>
     `;
 
     card.querySelector(".delete-btn").addEventListener("click", (e) => {
@@ -41,7 +43,7 @@ function createEmptyTrip() {
     title: "Untitled Trip",
     desc: "Add a short description...",
     img: "assets/placeholder-banner.jpg",
-    date: "Click to set date",
+    date: "",
   };
   trips.push(newTrip);
   renderTrips();
@@ -49,12 +51,9 @@ function createEmptyTrip() {
 }
 
 if (addTripBtn) addTripBtn.addEventListener("click", createEmptyTrip);
-if (addCustomTripBtn)
-  addCustomTripBtn.addEventListener("click", createEmptyTrip);
+if (addCustomTripBtn) addCustomTripBtn.addEventListener("click", createEmptyTrip);
 
 renderTrips();
-
-// === Modal Handling ===
 
 async function openTripModal(trip) {
   let modalOverlay = document.getElementById("trip-modal");
@@ -71,7 +70,6 @@ async function openTripModal(trip) {
 
     modalOverlay.classList.add("show");
 
-    // Elements
     const titleEl = document.getElementById("modal-title");
     const descEl = document.getElementById("modal-description");
     const dateEl = document.getElementById("modal-date");
@@ -79,7 +77,8 @@ async function openTripModal(trip) {
 
     titleEl.textContent = trip.title;
     descEl.textContent = trip.desc;
-    dateEl.textContent = trip.date;
+    dateEl.value = trip.date || "";
+    dateEl.placeholder = "Click to set date";
     bannerEl.src = trip.img;
 
     titleEl.oninput = () => {
@@ -90,6 +89,9 @@ async function openTripModal(trip) {
       trip.desc = descEl.textContent;
       renderTrips();
     };
+
+    titleEl.addEventListener("click", selectAllText);
+    descEl.addEventListener("click", selectAllText);
 
     dateEl.onclick = () => showDatePicker(trip);
 
@@ -125,7 +127,16 @@ function addNewDay() {
     <summary>
       <div class="day-header">
         <div class="day-info">
-          <img src="assets/icons/flight.png" class="day-icon" />
+          <div class="day-icon-wrapper">
+            <i class="fa-solid fa-circle-plus day-icon"></i>
+            <div class="day-icon-dropdown hidden">
+              <div class="icon-option"><i class="fa-solid fa-plane"></i></div>
+              <div class="icon-option"><i class="fa-solid fa-hotel"></i></div>
+              <div class="icon-option"><i class="fa-solid fa-utensils"></i></div>
+              <div class="icon-option"><i class="fa-solid fa-tree"></i></div>
+              <div class="icon-option"><i class="fa-solid fa-ship"></i></div>
+            </div>
+          </div>
           <div>
             <div contenteditable="true" class="day-title">Day Title</div>
             <div contenteditable="true" class="day-subtitle">Subtitle</div>
@@ -154,69 +165,35 @@ function attachDeleteHandlers() {
 }
 
 function attachDayIconSelector() {
-  const icons = document.querySelectorAll(".day-icon");
-  icons.forEach((icon) => {
-    icon.onclick = (e) => {
+  document.querySelectorAll(".day-icon-wrapper").forEach((wrapper) => {
+    wrapper.onclick = (e) => {
+      toggleDayIconDropdown(e, wrapper);
+    };
+  });
+
+  document.querySelectorAll(".icon-option").forEach((iconOption) => {
+    iconOption.onclick = (e) => {
       e.stopPropagation();
-      openIconMenu(icon);
+      setDayIcon(iconOption);
     };
   });
 }
 
-function openIconMenu(targetIcon) {
-  const existing = document.getElementById("icon-menu");
-  if (existing) existing.remove();
-
-  const iconMenu = document.createElement("div");
-  iconMenu.id = "icon-menu";
-  iconMenu.style.position = "absolute";
-  iconMenu.style.top = `${
-    targetIcon.getBoundingClientRect().bottom + window.scrollY
-  }px`;
-  iconMenu.style.left = `${targetIcon.getBoundingClientRect().left}px`;
-  iconMenu.style.background = "#111";
-  iconMenu.style.border = "1px solid #333";
-  iconMenu.style.padding = "6px";
-  iconMenu.style.borderRadius = "8px";
-  iconMenu.style.display = "flex";
-  iconMenu.style.gap = "8px";
-  iconMenu.style.zIndex = 9999;
-
-  const iconList = [
-    "flight",
-    "hotel",
-    "food",
-    "boating",
-    "sport",
-    "park",
-    "sightseeing",
-  ];
-
-  iconList.forEach((name) => {
-    const img = document.createElement("img");
-    img.src = `assets/icons/${name}.png`;
-    img.style.width = "28px";
-    img.style.height = "28px";
-    img.style.cursor = "pointer";
-    img.title = name;
-    img.onclick = () => {
-      targetIcon.src = img.src;
-      iconMenu.remove();
-    };
-    iconMenu.appendChild(img);
+function toggleDayIconDropdown(event, wrapper) {
+  event.stopPropagation();
+  const dropdown = wrapper.querySelector(".day-icon-dropdown");
+  document.querySelectorAll(".day-icon-dropdown").forEach((d) => {
+    if (d !== dropdown) d.classList.add("hidden");
   });
+  dropdown.classList.toggle("hidden");
+}
 
-  document.body.appendChild(iconMenu);
-
-  document.addEventListener(
-    "click",
-    (e) => {
-      if (!iconMenu.contains(e.target) && e.target !== targetIcon) {
-        iconMenu.remove();
-      }
-    },
-    { once: true }
-  );
+function setDayIcon(element) {
+  const iconClass = element.querySelector("i").className;
+  const wrapper = element.closest(".day-icon-wrapper");
+  const icon = wrapper.querySelector(".day-icon");
+  icon.className = iconClass + " day-icon";
+  wrapper.querySelector(".day-icon-dropdown").classList.add("hidden");
 }
 
 function handleBannerUpload(e, trip) {
@@ -241,14 +218,31 @@ function showDatePicker(trip) {
   input.style.pointerEvents = "none";
 
   document.body.appendChild(input);
-
   input.addEventListener("change", () => {
     trip.date = input.value;
     const dateEl = document.getElementById("modal-date");
-    if (dateEl) dateEl.textContent = trip.date;
+    if (dateEl) dateEl.value = trip.date;
     renderTrips();
   });
-
   input.click();
   setTimeout(() => document.body.removeChild(input), 300);
+}
+
+function selectAllText(e) {
+  const el = e.target;
+  if (el.contentEditable === "true") {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+}
+
+function toggleForm(mode) {
+  const isLogin = mode === 'login';
+  document.getElementById('form-title').textContent = isLogin ? 'Login' : 'Create Account';
+  document.getElementById('toggle-btn').textContent = isLogin ? 'Create Account' : 'Login';
+  document.getElementById('submit-btn').textContent = isLogin ? 'Login' : 'Create Account';
+  document.getElementById('remember-me').style.display = isLogin ? 'block' : 'none';
 }

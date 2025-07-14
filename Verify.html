@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Verify Account</title>
+    <link rel="stylesheet" href="Verify.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Kadwa&display=swap" rel="stylesheet">
+
+    <script>
+      function toggleForm(mode) {
+        const isLogin = mode === 'login';
+        document.getElementById('form-title').textContent = isLogin ? 'Login' : 'Create Account';
+        document.getElementById('toggle-btn').textContent = isLogin ? 'Create Account' : 'Login';
+        document.getElementById('submit-btn').textContent = isLogin ? 'Login' : 'Create Account';
+        document.getElementById('remember-me').style.display = isLogin ? 'block' : 'none';
+      }
+
+      window.onload = () => {
+        toggleForm('register'); // default state
+        document.getElementById('toggle-btn').addEventListener('click', () => {
+          const currentTitle = document.getElementById('form-title').textContent;
+          const mode = currentTitle === 'Login' ? 'register' : 'login';
+          toggleForm(mode);
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <div class="background-animated">
+      <div class="blur-circle circle1"></div>
+      <div class="blur-circle circle2"></div>
+      <div class="blur-circle circle3"></div>
+      <div class="blur-circle circle4"></div>
+    </div>
+
+    <div class="verify-container">
+      <div class="verify-box">
+        <h2 id="form-title">Create Account</h2>
+        <form>
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Password" required />
+          <div id="remember-me">
+            <label><input type="checkbox" /> Remember Me</label>
+          </div>
+          <button type="submit" id="submit-btn">Create Account</button>
+        </form>
+
+        <div class="or-separator">OR</div>
+
+        <button id="toggle-btn">Login</button>
+      </div>
+    </div>
+  </body>
+</html>
