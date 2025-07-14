@@ -1,81 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Roam Route </title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roam Route</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="Modal.css" />
+  </head>
+  <body>
+    <!-- Background video -->
+    <video autoplay muted loop class="bg-video">
+      <source src="Assets/Bg video 4.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
 
-  <!-- Background video -->
-  <video autoplay muted loop class="bg-video">
-    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="logo">Roam <span>Route</span></div>
+      <div class="nav-links">
+        <a href="#">Your Trips</a>
+        <a href="#">Summary</a>
+      </div>
+      <div class="nav-right">
+        <button class="user-btn">User</button>
+        <button class="logout-btn">Logout</button>
+      </div>
+    </nav>
 
-  <!-- Navigation Bar -->
-  <nav>
-    <div class="logo">Roam <span>Route</span></div>
-    <div class="nav-links">
-      <a href="#">Your Trips</a>
-      <a href="#">Summary</a>
-    </div>
-    <div class="nav-right">
-      <button class="user-btn">User</button>
-      <button class="logout-btn">Logout</button>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Timeless Journeys</h1>
-    <p>Design and capture your dream adventures with style and soul.</p>
-    <button class="btn silver-shine" id="add-trip">
-        <svg width="16" height="16" fill="currentColor" style="margin-right: 0.5rem;">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Timeless Journeys</h1>
+      <p>Design and capture your dream adventures with style and soul.</p>
+      <button class="btn silver-shine" id="add-trip">
+        <svg
+          width="16"
+          height="16"
+          fill="currentColor"
+          style="margin-right: 0.5rem"
+        >
           <path d="M8 0v8H0v2h8v8h2v-8h8V8h-8V0H8z" />
         </svg>
         Add Destination
       </button>
-      
-      
-  </section>
+    </section>
 
-  <!-- Trending Destinations -->
-  <section class="section">
-    <h2 class="section-title">Trending Destinations</h2>
-    <div class="bento-grid">
-      <div class="card">    
-        <img src="assets/Mt Fuji.jpg" alt="Kyoto">
-        <h3>Kyoto, Japan</h3>
-        <p>Temples and timeless traditions.</p>
+    <!-- Trending Destinations -->
+    <section class="section">
+      <h2 class="section-title">Trending Destinations</h2>
+      <div class="bento-grid">
+        <div class="card">
+          <img src="assets/Kyoto.jpg" alt="Kyoto" />
+          <h3>Kyoto, Japan</h3>
+          <p>Temples and timeless traditions.</p>
+        </div>
+        <div class="card">
+          <img src="assets/lisbon.jpg" alt="Lisbon" />
+          <h3>Lisbon, Portugal</h3>
+          <p>Elegant streets and golden light.</p>
+        </div>
+        <div class="card">
+          <img src="assets/Reykjavik.jpg" alt="Iceland" />
+          <h3>Reykjavik, Iceland</h3>
+          <p>Northern lights and black sands.</p>
+        </div>
       </div>
-      <div class="card">
-        <img src="assets/lisbon.jpg" alt="Lisbon">
-        <h3>Lisbon, Portugal</h3>
-        <p>Elegant streets and golden light.</p>
-      </div>
-      <div class="card">
-        <img src="assets/Reykjavik.jpg" alt="Iceland">
-        <h3>Reykjavik, Iceland</h3>
-        <p>Northern lights and black sands.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Your Trips -->
-  <section class="section">
-    <div class="your-trips-box">
-      <div class="section-header">
-        <h2 class="section-title">Your Trips</h2>
-        <button id="add-custom-trip">+ Add New Trip</button>
+    <!-- Your Trips -->
+    <section class="section">
+      <div class="your-trips-box">
+        <div class="section-header">
+          <h2 class="section-title">Your Trips</h2>
+          <button id="add-custom-trip">+ Add New Trip</button>
+        </div>
+        <div class="bento-grid" id="trip-list"></div>
       </div>
-      <div class="bento-grid" id="trip-list"></div>
-    </div>
-  </section>
-  
+    </section>
 
-  <script src="app.js"></script>
-</body>
+    <script src="app.js"></script>
+
+    <!-- Modal container -->
+    <!-- Modal Container (Loaded from Modal.html) -->
+    <div id="modal-container"></div>
+
+    <!-- Load Modal HTML and CSS -->
+    <script>
+      // Load modal HTML dynamically
+      fetch("Modal.html")
+        .then((res) => res.text())
+        .then((html) => {
+          document.body.insertAdjacentHTML("beforeend", html);
+        });
+
+      // Function to open modal and populate data
+      function openModal(title, description, date) {
+        document.getElementById("modal-title").textContent = title;
+        document.getElementById("modal-description").textContent = description;
+        document.getElementById(
+          "modal-date"
+        ).innerHTML = `<strong>Date:</strong> ${date}`;
+        document.getElementById("trip-modal").classList.add("show");
+      }
+
+      function closeModal() {
+        document.getElementById("trip-modal").classList.remove("show");
+      }
+
+      // Attach listener to trip cards once they're rendered
+      document.addEventListener("click", (e) => {
+        const card = e.target.closest(".trip-card");
+        if (card) {
+          const title = card.querySelector("h3")?.textContent || "Unknown Trip";
+          const description =
+            card.querySelector("p")?.textContent || "No description provided.";
+          const date = card.getAttribute("data-date") || "Not set";
+          openModal(title, description, date);
+        }
+      });
+    </script>
+  </body>
 </html>
